@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+#toolbar {
+    background: #2b2b2b;
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+#toolbar button {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#editor {
+    padding: 10px;
+    margin: 0;
+    tab-size: 4;
+    overflow-x: auto;
+}
+
+#output {
+    padding: 10px;
+    background: #f0f0f0;
+    border-top: 1px solid #ddd;
+    white-space: pre-wrap;
+}

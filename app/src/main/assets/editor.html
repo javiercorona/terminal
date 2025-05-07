@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Franky Code Editor</title>
+    <!-- ACE Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js"></script>
+    <style>
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+        }
+        /* Toolbar */
+        #toolbar {
+          background: #333;
+          padding: 8px;
+          display: flex;
+          gap: 8px;
+        }
+        #toolbar button {
+          color: #eee;
+          background: #555;
+          border: none;
+          padding: 6px 12px;
+          font-size: 14px;
+          cursor: pointer;
+        }
+        #toolbar button:hover {
+          background: #666;
+        }
+        /* Editor fills remaining space */
+        #editor {
+          flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div id="toolbar">
+    <button id="btnSave">💾 Save</button>
+    <button id="btnRun">▶ Run</button>
+</div>
+
+<div id="editor">
+    # Write your Python code here
+    print("Hello from Franky Editor!")
+</div>
+
+<script>
+    // Initialize ACE
+    const editor = ace.edit('editor');
+    editor.setTheme('ace/theme/monokai');
+    editor.session.setMode('ace/mode/python');
+    editor.setOptions({
+      fontSize: '14px',
+      wrap: true
+    });
+
+    // Send code back to Android to save
+    function sendCodeToAndroid() {
+      const code = editor.getValue();
+      if (window.Android && Android.receiveCode) {
+        Android.receiveCode(code);
+      }
+    }
+
+    // Ask Android to run the current file
+    function runCodeOnAndroid() {
+      sendCodeToAndroid(); // first save
+      if (window.Android && Android.runCode) {
+        Android.runCode();   // you'll implement this in EditorBridge
+      }
+    }
+
+    // Called from Android to populate the editor
+    function setCodeFromAndroid(payload) {
+      // payload may be a JSON string or direct code
+      let code = payload;
+      try {
+        // if Android passed a JSON object { code: "..." }
+        const obj = JSON.parse(payload);
+        if (obj.code !== undefined) {
+          code = obj.code;
+        }
+      } catch (_) { }
+      editor.setValue(code, -1);
+    }
+
+    // Wire up buttons
+    document.getElementById('btnSave').addEventListener('click', sendCodeToAndroid);
+    document.getElementById('btnRun' ).addEventListener('click', runCodeOnAndroid);
+
+    // Expose for Android
+    window.setCodeFromAndroid = setCodeFromAndroid;
+</script>
+</body>
+</html>

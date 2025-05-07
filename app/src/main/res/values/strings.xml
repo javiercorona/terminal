@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Rename from the old demo title -->
+    <string name="app_name">Franky Terminal</string>
+    <string name="run">Run</string>
+    <string name="speak">🎙️ Speak</string>
+    <string name="enter_command">Enter command</string>
+</resources>

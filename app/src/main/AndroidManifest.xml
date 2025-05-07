@@ -1,0 +1,53 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.terminalpython">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-feature android:name="android.hardware.camera.any"/>
+
+    <application
+        android:allowBackup="true"
+        android:label="Franky Terminal"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        android:supportsRtl="true">
+
+        <!-- Launcher activity -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Code editor activity -->
+        <activity android:name=".CodeEditorActivity"
+            android:label="Code Editor"
+            android:exported="true" />
+        <activity android:name=".HelpActivity"
+            android:label="Help"
+            android:exported="true" />
+
+
+        <!-- Chaquopy support activity -->
+        <activity
+            android:name="com.chaquo.python.PythonActivity"
+            android:exported="true" />
+
+        <!-- FileProvider for camera/QR -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+</manifest>
