@@ -1,4 +1,4 @@
-## 📱 Features
+ ## 📱 Features
 
 - 🧠 Voice command execution (via SpeechRecognizer)
 - 🐍 Python command terminal (Chaquopy embedded)
